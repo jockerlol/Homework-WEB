@@ -1,9 +1,10 @@
 from datetime import datetime as dt, timedelta
 from collections import UserList
 import pickle
-from info import *
 import os
+from info import Birthday, Email, Status, Phone, Name, Note, Record
 from abc import ABC, abstractmethod
+
 
 class Formator(ABC):
     @abstractmethod
@@ -11,10 +12,16 @@ class Formator(ABC):
         pass
 
 
-class AddressBook(UserList,Formator):
+class AddressBook(UserList, Formator):
     def __init__(self):
         self.data = []
         self.counter = -1
+
+    def output_info(self, func):
+        if func == 'view':
+            return self.__str__()
+        elif func == 'congratulate':
+            return self.congratulate()
 
     def __str__(self):
         result = []
@@ -126,7 +133,7 @@ class AddressBook(UserList,Formator):
                         new_contact = new_value.split(' ')
                         new_value = []
                         for number in new_contact:
-                             new_value.append(Phone(number).value)
+                            new_value.append(Phone(number).value)
                     if parameter in account.keys():
                         account[parameter] = new_value
                     else:
@@ -181,4 +188,3 @@ class AddressBook(UserList,Formator):
             if len(value):
                 result.append(f"{key}: {' '.join(value)}")
         return '_' * 50 + '\n' + '\n'.join(result) + '\n' + '_' * 50
-
