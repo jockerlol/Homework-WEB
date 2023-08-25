@@ -10,4 +10,4 @@ RUN pipenv install --no-interaction
 
 COPY . /app
 
-CMD ["python", "main.py"]
+CMD ["python", "__main__.py"]
